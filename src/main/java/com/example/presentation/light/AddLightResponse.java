@@ -1,4 +1,4 @@
-package com.example.domain.entity;
+package com.example.presentation.light;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @With
 @EqualsAndHashCode
-public class LightEntity {
+public class AddLightResponse {
     private long id;
     private int red;
     private int green;
