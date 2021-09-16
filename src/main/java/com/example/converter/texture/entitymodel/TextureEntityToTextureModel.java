@@ -12,5 +12,4 @@ public class TextureEntityToTextureModel implements Converter<TextureEntity, Tex
     public TextureModel convertNotNull(TextureEntity from) {
         return new TextureModel().withId(from.getId()).withFilename(from.getFilename());
     }
-
 }

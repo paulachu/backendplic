@@ -1,8 +1,6 @@
-package com.example.domain.entity;
+package com.example.presentation.mesh;
 
 import lombok.*;
-
-import java.io.File;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,9 +8,8 @@ import java.io.File;
 @Getter
 @With
 @EqualsAndHashCode
-public class MeshEntity {
+public class AddMeshResponse {
     private long id;
     private String filename;
-    private File file;
     private String presignedUrl;
 }

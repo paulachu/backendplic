@@ -3,7 +3,6 @@ package com.example.converter.texture.entitymodel;
 import com.example.data.model.TextureModel;
 import com.example.domain.entity.TextureEntity;
 import com.example.converter.Converter;
-import com.example.presentation.texture.AddTextureResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -13,5 +12,4 @@ public class TextureModelToTextureEntity implements Converter<TextureModel, Text
     public TextureEntity convertNotNull(TextureModel from) {
         return new TextureEntity().withId(from.getId()).withFilename(from.getFilename());
     }
-
 }

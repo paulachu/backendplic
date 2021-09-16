@@ -1,9 +1,7 @@
 package com.example.converter.texture.dtoentity;
 
 import com.example.converter.Converter;
-import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.TextureEntity;
-import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.texture.AddTextureResponse;
 
 import javax.enterprise.context.ApplicationScoped;
