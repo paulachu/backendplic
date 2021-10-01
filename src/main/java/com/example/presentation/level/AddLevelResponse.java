@@ -1,6 +1,7 @@
-package com.example.domain.entity;
+package com.example.presentation.level;
 
 import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @With
 @EqualsAndHashCode
-public class LevelEntity {
+public class AddLevelResponse {
     private long id;
     private long texture;
     private long music;

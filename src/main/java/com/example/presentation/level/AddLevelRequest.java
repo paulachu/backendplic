@@ -1,8 +1,8 @@
-package com.example.domain.entity;
+package com.example.presentation.level;
 
 import lombok.*;
+
 import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,11 +10,10 @@ import java.util.List;
 @Getter
 @With
 @EqualsAndHashCode
-public class LevelEntity {
-    private long id;
+public class AddLevelRequest {
     private long texture;
     private long music;
     private long skybox;
-    private List<Long> meshs;
+    private ArrayList<Long> meshs;
     private long light;
 }
