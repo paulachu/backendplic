@@ -22,4 +22,6 @@ public class LightModel extends PanacheEntityBase {
     private int green;
     private int blue;
     private int alpha;
+    @OneToMany()
+    private List<LevelModel> level;
 }

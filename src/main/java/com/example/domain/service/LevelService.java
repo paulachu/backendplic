@@ -2,7 +2,9 @@ package com.example.domain.service;
 
 import com.example.converter.Converter;
 import com.example.data.model.LevelModel;
+import com.example.data.model.LightModel;
 import com.example.domain.entity.LevelEntity;
+import com.example.domain.entity.LightEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,6 +12,7 @@ import javax.inject.Inject;
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class LevelService implements LevelServiceInterface {
@@ -19,7 +22,8 @@ public class LevelService implements LevelServiceInterface {
     Converter<LevelModel, LevelEntity> modelToEntity;
     @Inject
     Converter<LevelEntity, LevelModel> entityToModel;
-
+    @Inject
+    Converter<LightModel, LightEntity> lightModelLightEntityConverter;
     @Override
     @Transactional
     public LevelEntity addLevel(LevelEntity toAdd)

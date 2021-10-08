@@ -15,4 +15,5 @@ public class SkyboxEntity {
     private String filename;
     private File file;
     private String presignedUrl;
+    private long level;
 }

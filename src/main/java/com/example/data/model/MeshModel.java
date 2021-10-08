@@ -19,4 +19,6 @@ public class MeshModel extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String filename;
+    @ManyToMany()
+    private List<LevelModel> level;
 }

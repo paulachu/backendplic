@@ -7,6 +7,8 @@ import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class LevelModelToLevelEntity implements Converter<LevelModel, LevelEntity> {
@@ -14,10 +16,10 @@ public class LevelModelToLevelEntity implements Converter<LevelModel, LevelEntit
     public LevelEntity convertNotNull(LevelModel from) {
         return new LevelEntity()
                 .withId(from.getId())
-                .withLight(from.getLight())
-                .withMeshs(from.getMeshs())
-                .withMusic(from.getMusic())
-                .withSkybox(from.getSkybox())
-                .withTexture(from.getTexture());
+                .withLight(from.getLight().getId())
+                .withMeshs(from.getMeshs().stream().map(meshModel -> meshModel.getId()).collect(Collectors.toList()))
+                .withMusic(from.getMusic().getId())
+                .withSkybox(from.getSkybox().getId())
+                .withTexture(from.getTexture().getId());
     }
 }

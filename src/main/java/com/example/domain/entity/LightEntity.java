@@ -14,4 +14,5 @@ public class LightEntity {
     private int green;
     private int blue;
     private int alpha;
+    private int level;
 }
