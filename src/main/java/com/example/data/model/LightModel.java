@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "light")

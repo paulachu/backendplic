@@ -58,4 +58,14 @@ public class TextureService implements TextureServiceInterface {
             return null;
         }
     }
+
+    @Override
+    @Transactional
+    public TextureEntity getByIdTexture(Long id){
+        TextureModel textureModel = textureRepository.findById(id);
+        if (textureModel != null){
+            return modelToEntity.convert(textureModel);
+        }
+        return null;
+    }
 }

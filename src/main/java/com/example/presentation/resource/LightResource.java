@@ -7,10 +7,7 @@ import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("light")
@@ -29,6 +26,24 @@ public class LightResource {
     {
         LightEntity lightEntityToAdd = addRequestToEntity.convert(addLightRequest);
         LightEntity lightEntity = lightService.addLight(lightEntityToAdd);
+        return entityToAddResponse.convert(lightEntity);
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public AddLightResponse putLight(@PathParam("id") Long id, AddLightRequest addLightRequest){
+        LightEntity lightEntityToAdd = addRequestToEntity.convert(addLightRequest);
+        LightEntity lightEntity = lightService.putLight(lightEntityToAdd, id);
+        return entityToAddResponse.convert(lightEntity);
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public AddLightResponse getByIdLight(@PathParam("id") Long id){
+        LightEntity lightEntity = lightService.getByIdLight(id);
         return entityToAddResponse.convert(lightEntity);
     }
 }

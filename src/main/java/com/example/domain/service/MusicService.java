@@ -1,7 +1,9 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LightModel;
 import com.example.data.model.MusicModel;
+import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MusicEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
@@ -44,5 +46,15 @@ public class MusicService implements MusicServiceInterface {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public MusicEntity getByIdMusic(Long id){
+        MusicModel musicModel = musicRepository.findById(id);
+        if (musicModel != null){
+            return modelToEntity.convert(musicModel);
+        }
+        return null;
     }
 }

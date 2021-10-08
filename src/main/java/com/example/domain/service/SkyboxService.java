@@ -1,7 +1,9 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LightModel;
 import com.example.data.model.SkyboxModel;
+import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.SkyboxEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
@@ -45,5 +47,15 @@ public class SkyboxService implements SkyboxServiceInterface {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public SkyboxEntity getByIdSkybox(Long id){
+        SkyboxModel skyboxModel = skyboxRepository.findById(id);
+        if (skyboxModel != null){
+            return modelToEntity.convert(skyboxModel);
+        }
+        return null;
     }
 }

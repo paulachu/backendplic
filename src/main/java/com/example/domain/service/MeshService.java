@@ -1,7 +1,9 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LightModel;
 import com.example.data.model.MeshModel;
+import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MeshEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
@@ -45,5 +47,15 @@ public class MeshService implements MeshServiceInterface {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public MeshEntity getByIdMesh(Long id){
+        MeshModel meshModel = meshRepository.findById(id);
+        if (meshModel != null){
+            return modelToEntity.convert(meshModel);
+        }
+        return null;
     }
 }

@@ -1,17 +1,16 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
+import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MusicEntity;
 import com.example.domain.service.MusicServiceInterface;
+import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.music.AddMusicResponse;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
@@ -41,5 +40,13 @@ public class MusicResource {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public AddMusicResponse getByIdMusic(@PathParam("id") Long id){
+        MusicEntity musicEntity = musicService.getByIdMusic(id);
+        return entityToAddResponse.convert(musicEntity);
     }
 }

@@ -4,10 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Set;
 import java.util.List;
-import java.util.Collection;
 
 @Entity
 @Table(name = "level")

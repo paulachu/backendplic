@@ -1,12 +1,14 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
 import com.example.domain.entity.LightEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 
 @ApplicationScoped
@@ -26,5 +28,30 @@ public class LightService implements LightServiceInterface {
         LightModel lightModel = entityToModel.convert(toAdd);
         lightRepository.persist(lightModel);
         return modelToEntity.convert(lightModel);
+    }
+
+    @Override
+    @Transactional
+    public LightEntity putLight(LightEntity toUpdate, Long id){
+        LightModel lightModel = entityToModel.convert(toUpdate);
+        LightModel row = lightRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
+        if (row != null) {
+            row.setAlpha(lightModel.getAlpha());
+            row.setBlue(lightModel.getBlue());
+            row.setGreen(lightModel.getGreen());
+            row.setRed(lightModel.getRed());
+            return modelToEntity.convert(row);
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public LightEntity getByIdLight(Long id){
+        LightModel lightModel = lightRepository.findById(id);
+        if (lightModel != null){
+            return modelToEntity.convert(lightModel);
+        }
+        return null;
     }
 }
