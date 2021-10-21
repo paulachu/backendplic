@@ -1,6 +1,8 @@
 package com.example.domain.entity;
 
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,4 +12,9 @@ import lombok.*;
 @EqualsAndHashCode
 public class LevelEntity {
     private long id;
+    private long texture;
+    private long music;
+    private long skybox;
+    private List<Long> meshs;
+    private long light;
 }

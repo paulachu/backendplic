@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "light")
@@ -17,4 +18,10 @@ public class LightModel extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private int red;
+    private int green;
+    private int blue;
+    private int alpha;
+    @OneToMany()
+    private List<LevelModel> level;
 }

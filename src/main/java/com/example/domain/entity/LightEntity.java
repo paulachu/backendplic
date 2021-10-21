@@ -10,4 +10,9 @@ import lombok.*;
 @EqualsAndHashCode
 public class LightEntity {
     private long id;
+    private int red;
+    private int green;
+    private int blue;
+    private int alpha;
+    private int level;
 }
