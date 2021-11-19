@@ -32,6 +32,7 @@ public class MusicService implements MusicServiceInterface {
             String url;
             try {
                 url = storageService.storeFile(toAdd.getFilename(), toAdd.getFile(), FileType.Music);
+                //musicModel.setPresignedUrl(url);
             }
             catch (Exception e)
             {
@@ -50,10 +51,11 @@ public class MusicService implements MusicServiceInterface {
 
     @Override
     @Transactional
-    public MusicEntity getByIdMusic(Long id){
+    public MusicEntity getByIdMusic(Long id) throws Exception {
         MusicModel musicModel = musicRepository.findById(id);
         if (musicModel != null){
-            return modelToEntity.convert(musicModel);
+            String url = storageService.getUrlFile(musicModel.getFilename(), FileType.Music);
+            return modelToEntity.convert(musicModel).withPresignedUrl(url);
         }
         return null;
     }
