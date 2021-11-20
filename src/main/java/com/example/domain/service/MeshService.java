@@ -51,10 +51,11 @@ public class MeshService implements MeshServiceInterface {
 
     @Override
     @Transactional
-    public MeshEntity getByIdMesh(Long id){
+    public MeshEntity getByIdMesh(Long id) throws Exception {
         MeshModel meshModel = meshRepository.findById(id);
         if (meshModel != null){
-            return modelToEntity.convert(meshModel);
+            String url = storageService.getUrlFile(meshModel.getFilename(), FileType.Mesh);
+            return modelToEntity.convert(meshModel).withPresignedUrl(url);
         }
         return null;
     }

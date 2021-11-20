@@ -61,10 +61,11 @@ public class TextureService implements TextureServiceInterface {
 
     @Override
     @Transactional
-    public TextureEntity getByIdTexture(Long id){
+    public TextureEntity getByIdTexture(Long id) throws Exception {
         TextureModel textureModel = textureRepository.findById(id);
         if (textureModel != null){
-            return modelToEntity.convert(textureModel);
+            String url = storageService.getUrlFile(textureModel.getFilename(), FileType.Texture);
+            return modelToEntity.convert(textureModel).withPresignedUrl(url);
         }
         return null;
     }

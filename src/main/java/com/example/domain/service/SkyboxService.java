@@ -51,10 +51,11 @@ public class SkyboxService implements SkyboxServiceInterface {
 
     @Override
     @Transactional
-    public SkyboxEntity getByIdSkybox(Long id){
+    public SkyboxEntity getByIdSkybox(Long id) throws Exception {
         SkyboxModel skyboxModel = skyboxRepository.findById(id);
         if (skyboxModel != null){
-            return modelToEntity.convert(skyboxModel);
+            String url = storageService.getUrlFile(skyboxModel.getFilename(), FileType.Skybox);
+            return modelToEntity.convert(skyboxModel).withPresignedUrl(url);
         }
         return null;
     }
