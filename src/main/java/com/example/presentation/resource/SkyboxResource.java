@@ -45,7 +45,7 @@ public class SkyboxResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AddSkyboxResponse getByIdSkybox(@PathParam("id") Long id){
+    public AddSkyboxResponse getByIdSkybox(@PathParam("id") Long id) throws Exception {
         SkyboxEntity skyboxEntity = skyboxService.getByIdSkybox(id);
         return entityToAddResponse.convert(skyboxEntity);
     }

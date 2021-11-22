@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @With
 @EqualsAndHashCode
 public class AddLevelRequest {
+    private long levelNumber;
     private long texture;
     private long music;
     private long skybox;

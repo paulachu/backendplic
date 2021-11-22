@@ -18,6 +18,9 @@ public class LevelModel extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private long levelNumber;
+
     @ManyToOne()
     private TextureModel texture;
     @ManyToOne()

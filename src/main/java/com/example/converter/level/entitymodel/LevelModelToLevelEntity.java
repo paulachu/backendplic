@@ -16,6 +16,7 @@ public class LevelModelToLevelEntity implements Converter<LevelModel, LevelEntit
     public LevelEntity convertNotNull(LevelModel from) {
         return new LevelEntity()
                 .withId(from.getId())
+                .withLevelNumber(from.getLevelNumber())
                 .withLight(from.getLight().getId())
                 .withMeshs(from.getMeshs().stream().map(meshModel -> meshModel.getId()).collect(Collectors.toList()))
                 .withMusic(from.getMusic().getId())

@@ -11,6 +11,7 @@ public class AddLevelRequestToLevelEntity implements Converter<AddLevelRequest, 
     @Override
     public LevelEntity convertNotNull(AddLevelRequest from) {
         return new LevelEntity()
+                .withLevelNumber(from.getLevelNumber())
                 .withLight(from.getLight())
                 .withMeshs(from.getMeshs())
                 .withMusic(from.getMusic())

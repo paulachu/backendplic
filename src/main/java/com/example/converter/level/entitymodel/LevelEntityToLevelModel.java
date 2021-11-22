@@ -19,6 +19,7 @@ public class LevelEntityToLevelModel implements Converter<LevelEntity, LevelMode
         }
         return new LevelModel()
                 .withId(from.getId())
+                .withLevelNumber(from.getLevelNumber())
                 .withLight(new LightModel().withId(from.getLight()))
                 .withMeshs(meshModelList)
                 .withMusic(new MusicModel().withId(from.getMusic()))

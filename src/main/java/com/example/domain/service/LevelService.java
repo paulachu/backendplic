@@ -46,6 +46,7 @@ public class LevelService implements LevelServiceInterface {
         LevelModel levelModel = entityToModel.convert(toUpdate);
         LevelModel row = levelRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
         if (row != null) {
+            row.setLevelNumber(levelModel.getLevelNumber());
             row.setLight(levelModel.getLight());
             row.setMeshs(levelModel.getMeshs());
             row.setMusic(levelModel.getMusic());

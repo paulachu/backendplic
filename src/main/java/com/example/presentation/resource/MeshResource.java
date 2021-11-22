@@ -45,7 +45,7 @@ public class MeshResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AddMeshResponse getByIdMesh(@PathParam("id") Long id){
+    public AddMeshResponse getByIdMesh(@PathParam("id") Long id) throws Exception {
         MeshEntity meshEntity = meshService.getByIdMesh(id);
         return entityToAddResponse.convert(meshEntity);
     }

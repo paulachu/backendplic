@@ -12,6 +12,7 @@ public class LevelEntityToAddLevelResponse implements Converter<LevelEntity, Add
     public AddLevelResponse convertNotNull(LevelEntity from) {
         return new AddLevelResponse()
                 .withId(from.getId())
+                .withLevelNumber(from.getLevelNumber())
                 .withLight(from.getLight())
                 .withMeshs(from.getMeshs())
                 .withMusic(from.getMusic())

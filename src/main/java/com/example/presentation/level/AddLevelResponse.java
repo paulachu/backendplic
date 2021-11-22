@@ -13,6 +13,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class AddLevelResponse {
     private long id;
+    private long levelNumber;
     private long texture;
     private long music;
     private long skybox;

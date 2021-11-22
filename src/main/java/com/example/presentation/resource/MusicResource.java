@@ -45,7 +45,7 @@ public class MusicResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AddMusicResponse getByIdMusic(@PathParam("id") Long id){
+    public AddMusicResponse getByIdMusic(@PathParam("id") Long id) throws Exception {
         MusicEntity musicEntity = musicService.getByIdMusic(id);
         return entityToAddResponse.convert(musicEntity);
     }

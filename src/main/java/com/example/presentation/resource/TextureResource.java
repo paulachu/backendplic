@@ -47,7 +47,7 @@ public class TextureResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AddTextureResponse getByIdLight(@PathParam("id") Long id){
+    public AddTextureResponse getByIdLight(@PathParam("id") Long id) throws Exception {
         TextureEntity textureEntity = textureService.getByIdTexture(id);
         return entityToAddResponse.convert(textureEntity);
     }

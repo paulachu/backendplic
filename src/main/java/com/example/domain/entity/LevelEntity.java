@@ -12,6 +12,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class LevelEntity {
     private long id;
+    private long levelNumber;
     private long texture;
     private long music;
     private long skybox;
