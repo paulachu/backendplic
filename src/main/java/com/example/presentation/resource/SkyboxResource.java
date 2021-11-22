@@ -4,12 +4,17 @@ import com.example.converter.Converter;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.SkyboxEntity;
 import com.example.domain.service.SkyboxServiceInterface;
+import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
+import com.example.presentation.skybox.AddSkyboxRequest;
 import com.example.presentation.skybox.AddSkyboxResponse;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,12 +32,10 @@ public class SkyboxResource {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
-    public Response addSkybox(MultipartFormDataInput input)
+    public Response addSkybox(@Valid @Parameter(hidden = true) @MultipartForm AddSkyboxRequest addSkyboxRequest)
     {
         try {
-            File file = input.getFormDataPart("file", File.class, null);
-            String name = input.getFormDataPart("filename", String.class, null);;
-            SkyboxEntity skyboxEntity = new SkyboxEntity().withFilename(name).withFile(file);
+            SkyboxEntity skyboxEntity = new SkyboxEntity().withFilename(addSkyboxRequest.getFilename()).withFile(addSkyboxRequest.getFile());
             SkyboxEntity skyboxEntityAdded = skyboxService.addSkybox(skyboxEntity);
             return Response.status(Response.Status.CREATED).entity(entityToAddResponse.convert(skyboxEntityAdded))
                     .build();
