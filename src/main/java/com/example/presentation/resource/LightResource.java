@@ -1,14 +1,17 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.service.LightServiceInterface;
+import com.example.presentation.level.AddLevelResponse;
 import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("light")
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,5 +48,12 @@ public class LightResource {
     public AddLightResponse getByIdLight(@PathParam("id") Long id){
         LightEntity lightEntity = lightService.getByIdLight(id);
         return entityToAddResponse.convert(lightEntity);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<AddLightResponse> getLights(){
+        List<LightEntity> lightEntityList = lightService.getLights();
+        return entityToAddResponse.convertList(lightEntityList);
     }
 }

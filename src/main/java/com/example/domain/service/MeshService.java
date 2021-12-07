@@ -1,8 +1,10 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
 import com.example.data.model.MeshModel;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MeshEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
@@ -10,6 +12,8 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class MeshService implements MeshServiceInterface {
@@ -58,5 +62,19 @@ public class MeshService implements MeshServiceInterface {
             return modelToEntity.convert(meshModel).withPresignedUrl(url);
         }
         return null;
+    }
+
+    @Override
+    public List<MeshEntity> getMeshs() throws Exception {
+        List<MeshModel> meshRepo = meshRepository.listAll();
+        if (meshRepo == null) {
+            return null;
+        }
+        List<MeshEntity> res = new ArrayList<>();
+        for (MeshModel i  : meshRepo) {
+            String url = storageService.getUrlFile(i.getFilename(), FileType.Mesh);
+            res.add(modelToEntity.convert(i).withPresignedUrl(url));
+        }
+        return res;
     }
 }

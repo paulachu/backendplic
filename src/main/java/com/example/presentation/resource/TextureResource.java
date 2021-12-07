@@ -1,10 +1,12 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.TextureEntity;
 import com.example.domain.service.LightServiceInterface;
 import com.example.domain.service.TextureServiceInterface;
+import com.example.presentation.level.AddLevelResponse;
 import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.texture.AddTextureRequest;
@@ -20,6 +22,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.List;
 
 @Path("texture")
 @Produces(MediaType.APPLICATION_JSON)
@@ -52,5 +55,12 @@ public class TextureResource {
     public AddTextureResponse getByIdLight(@PathParam("id") Long id) throws Exception {
         TextureEntity textureEntity = textureService.getByIdTexture(id);
         return entityToAddResponse.convert(textureEntity);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<AddTextureResponse> getTextures(){
+        List<TextureEntity> textureEntityList = textureService.getTextures();
+        return entityToAddResponse.convertList(textureEntityList);
     }
 }

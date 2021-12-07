@@ -1,9 +1,11 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MusicEntity;
 import com.example.domain.service.MusicServiceInterface;
+import com.example.presentation.level.AddLevelResponse;
 import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.music.AddMusicRequest;
 import com.example.presentation.music.AddMusicResponse;
@@ -18,6 +20,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.List;
 
 @Path("music")
 @Produces(MediaType.APPLICATION_JSON)
@@ -50,5 +53,12 @@ public class MusicResource {
     public AddMusicResponse getByIdMusic(@PathParam("id") Long id) throws Exception {
         MusicEntity musicEntity = musicService.getByIdMusic(id);
         return entityToAddResponse.convert(musicEntity);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<AddMusicResponse> getMusics(){
+        List<MusicEntity> musicEntityList = musicService.getMusics();
+        return entityToAddResponse.convertList(musicEntityList);
     }
 }

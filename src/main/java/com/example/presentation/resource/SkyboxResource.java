@@ -1,9 +1,11 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.SkyboxEntity;
 import com.example.domain.service.SkyboxServiceInterface;
+import com.example.presentation.level.AddLevelResponse;
 import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.skybox.AddSkyboxRequest;
@@ -19,6 +21,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.List;
 
 @Path("skybox")
 @Produces(MediaType.APPLICATION_JSON)
@@ -51,5 +54,12 @@ public class SkyboxResource {
     public AddSkyboxResponse getByIdSkybox(@PathParam("id") Long id) throws Exception {
         SkyboxEntity skyboxEntity = skyboxService.getByIdSkybox(id);
         return entityToAddResponse.convert(skyboxEntity);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<AddSkyboxResponse> getSkyboxs(){
+        List<SkyboxEntity> skyboxEntityList = skyboxService.getSkyboxs();
+        return entityToAddResponse.convertList(skyboxEntityList);
     }
 }

@@ -3,6 +3,7 @@ package com.example.domain.service;
 import com.example.converter.Converter;
 import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
@@ -10,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @ApplicationScoped
 public class LightService implements LightServiceInterface {
@@ -53,5 +55,12 @@ public class LightService implements LightServiceInterface {
             return modelToEntity.convert(lightModel);
         }
         return null;
+    }
+
+    @Override
+    public List<LightEntity> getLights(){
+        List<LightModel> lightRepo = lightRepository.listAll();
+        List<LightEntity> res = modelToEntity.convertList(lightRepo);
+        return res;
     }
 }

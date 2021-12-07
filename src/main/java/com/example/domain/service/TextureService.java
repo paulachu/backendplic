@@ -2,9 +2,13 @@ package com.example.domain.service;
 
 import com.example.ConfigurationProperties;
 import com.example.converter.Converter;
+import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
+import com.example.data.model.MeshModel;
 import com.example.data.model.TextureModel;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
+import com.example.domain.entity.MeshEntity;
 import com.example.domain.entity.TextureEntity;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
@@ -20,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
@@ -68,5 +74,19 @@ public class TextureService implements TextureServiceInterface {
             return modelToEntity.convert(textureModel).withPresignedUrl(url);
         }
         return null;
+    }
+
+    @Override
+    public List<TextureEntity> getTextures() throws Exception {
+        List<TextureModel> textureRepo = textureRepository.listAll();
+        if (textureRepo == null) {
+            return null;
+        }
+        List<TextureEntity> res = new ArrayList<>();
+        for (TextureModel i  : textureRepo) {
+            String url = storageService.getUrlFile(i.getFilename(), FileType.Texture);
+            res.add(modelToEntity.convert(i).withPresignedUrl(url));
+        }
+        return res;
     }
 }

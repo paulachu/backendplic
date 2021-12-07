@@ -1,15 +1,21 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
+import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
+import com.example.data.model.MusicModel;
 import com.example.data.model.SkyboxModel;
+import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
+import com.example.domain.entity.MusicEntity;
 import com.example.domain.entity.SkyboxEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class SkyboxService implements SkyboxServiceInterface {
@@ -58,5 +64,19 @@ public class SkyboxService implements SkyboxServiceInterface {
             return modelToEntity.convert(skyboxModel).withPresignedUrl(url);
         }
         return null;
+    }
+
+    @Override
+    public List<SkyboxEntity> getSkyboxs() throws Exception {
+        List<SkyboxModel> skyboxRepo = skyboxRepository.listAll();
+        if (skyboxRepo == null) {
+            return null;
+        }
+        List<SkyboxEntity> res = new ArrayList<>();
+        for (SkyboxModel i  : skyboxRepo) {
+            String url = storageService.getUrlFile(i.getFilename(), FileType.Skybox);
+            res.add(modelToEntity.convert(i).withPresignedUrl(url));
+        }
+        return res;
     }
 }
