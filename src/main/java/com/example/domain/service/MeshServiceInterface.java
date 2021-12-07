@@ -11,4 +11,6 @@ public interface MeshServiceInterface {
     MeshEntity getByIdMesh(Long id) throws Exception;
 
     List<MeshEntity> getMeshs() throws Exception;
+
+    boolean deleteMesh(Long id);
 }

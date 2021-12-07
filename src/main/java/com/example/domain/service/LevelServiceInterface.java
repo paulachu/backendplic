@@ -8,4 +8,5 @@ public interface LevelServiceInterface {
     LevelEntity addLevel(LevelEntity toAdd);
     List<LevelEntity> getLevels();
     LevelEntity putLevel(LevelEntity toUpdate, long id);
+    boolean deleteLevel(Long id);
 }

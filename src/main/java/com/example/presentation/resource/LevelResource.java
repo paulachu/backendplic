@@ -10,8 +10,10 @@ import com.example.presentation.light.AddLightRequest;
 import com.example.presentation.light.AddLightResponse;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("level")
@@ -48,5 +50,15 @@ public class LevelResource {
         LevelEntity levelEntityToAdd = addRequestToEntity.convert(addLevelRequest);
         LevelEntity levelEntity = levelService.putLevel(levelEntityToAdd, id);
         return entityToAddResponse.convert(levelEntity);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteLevel(@PathParam("id") Long id) {
+        if (levelService.deleteLevel(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

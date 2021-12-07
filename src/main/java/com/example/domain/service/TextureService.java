@@ -89,4 +89,11 @@ public class TextureService implements TextureServiceInterface {
         }
         return res;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteTexture(Long id)
+    {
+        return textureRepository.deleteById(id);
+    }
 }

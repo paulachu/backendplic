@@ -58,8 +58,18 @@ public class SkyboxResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AddSkyboxResponse> getSkyboxs(){
+    public List<AddSkyboxResponse> getSkyboxs() throws Exception {
         List<SkyboxEntity> skyboxEntityList = skyboxService.getSkyboxs();
         return entityToAddResponse.convertList(skyboxEntityList);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteSkybox(@PathParam("id") Long id) {
+        if (skyboxService.deleteSkybox(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

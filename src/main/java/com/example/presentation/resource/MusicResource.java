@@ -57,8 +57,18 @@ public class MusicResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AddMusicResponse> getMusics(){
+    public List<AddMusicResponse> getMusics() throws Exception {
         List<MusicEntity> musicEntityList = musicService.getMusics();
         return entityToAddResponse.convertList(musicEntityList);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteMusic(@PathParam("id") Long id) {
+        if (musicService.deleteMusic(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

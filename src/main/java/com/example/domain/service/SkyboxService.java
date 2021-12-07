@@ -79,4 +79,11 @@ public class SkyboxService implements SkyboxServiceInterface {
         }
         return res;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteSkybox(Long id)
+    {
+        return skyboxRepository.deleteById(id);
+    }
 }

@@ -56,4 +56,11 @@ public class LevelService implements LevelServiceInterface {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteLevel(Long id)
+    {
+        return levelRepository.deleteById(id);
+    }
 }

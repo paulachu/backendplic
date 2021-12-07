@@ -59,8 +59,18 @@ public class TextureResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AddTextureResponse> getTextures(){
+    public List<AddTextureResponse> getTextures() throws Exception {
         List<TextureEntity> textureEntityList = textureService.getTextures();
         return entityToAddResponse.convertList(textureEntityList);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTexture(@PathParam("id") Long id) {
+        if (textureService.deleteTexture(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

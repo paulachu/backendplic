@@ -79,4 +79,11 @@ public class MusicService implements MusicServiceInterface {
         }
         return res;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteMusic(Long id)
+    {
+        return musicRepository.deleteById(id);
+    }
 }

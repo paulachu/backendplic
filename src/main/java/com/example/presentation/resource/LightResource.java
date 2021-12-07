@@ -11,6 +11,7 @@ import com.example.presentation.light.AddLightResponse;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("light")
@@ -55,5 +56,15 @@ public class LightResource {
     public List<AddLightResponse> getLights(){
         List<LightEntity> lightEntityList = lightService.getLights();
         return entityToAddResponse.convertList(lightEntityList);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteLight(@PathParam("id") Long id) {
+        if (lightService.deleteLight(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

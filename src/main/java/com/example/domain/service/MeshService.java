@@ -77,4 +77,11 @@ public class MeshService implements MeshServiceInterface {
         }
         return res;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteMesh(Long id)
+    {
+        return meshRepository.deleteById(id);
+    }
 }

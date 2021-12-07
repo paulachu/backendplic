@@ -13,4 +13,6 @@ public interface LightServiceInterface {
     LightEntity getByIdLight(Long id);
 
     List<LightEntity> getLights();
+
+    boolean deleteLight(Long id);
 }

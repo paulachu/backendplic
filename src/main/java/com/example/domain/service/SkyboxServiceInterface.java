@@ -9,4 +9,5 @@ public interface SkyboxServiceInterface {
     SkyboxEntity addSkybox(SkyboxEntity toAdd);
     List<SkyboxEntity> getSkyboxs() throws Exception;
     SkyboxEntity getByIdSkybox(Long id) throws Exception;
+    boolean deleteSkybox(Long id);
 }

@@ -9,4 +9,5 @@ public interface MusicServiceInterface {
     MusicEntity addMusic(MusicEntity toAdd);
     List<MusicEntity> getMusics() throws Exception;
     MusicEntity getByIdMusic(Long id) throws Exception;
+    boolean deleteMusic(Long id);
 }

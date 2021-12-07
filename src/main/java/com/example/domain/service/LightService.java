@@ -63,4 +63,11 @@ public class LightService implements LightServiceInterface {
         List<LightEntity> res = modelToEntity.convertList(lightRepo);
         return res;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteLight(Long id)
+    {
+        return lightRepository.deleteById(id);
+    }
 }

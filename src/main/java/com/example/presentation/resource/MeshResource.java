@@ -57,8 +57,18 @@ public class MeshResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AddMeshResponse> getMeshs(){
+    public List<AddMeshResponse> getMeshs() throws Exception {
         List<MeshEntity> meshEntityList = meshService.getMeshs();
         return entityToAddResponse.convertList(meshEntityList);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteMesh(@PathParam("id") Long id) {
+        if (meshService.deleteMesh(id)){
+            return Response.status(Response.Status.ACCEPTED).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

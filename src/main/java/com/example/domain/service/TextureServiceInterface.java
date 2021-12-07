@@ -9,4 +9,5 @@ public interface TextureServiceInterface {
     TextureEntity addTexture(TextureEntity toAdd);
     List<TextureEntity> getTextures() throws Exception;
     TextureEntity getByIdTexture(Long id) throws Exception;
+    boolean deleteTexture(Long id);
 }
