@@ -1,32 +1,16 @@
 package com.example.domain.service;
 
-import com.example.ConfigurationProperties;
 import com.example.converter.Converter;
-import com.example.data.model.LevelModel;
-import com.example.data.model.LightModel;
-import com.example.data.model.MeshModel;
 import com.example.data.model.TextureModel;
-import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
-import com.example.domain.entity.MeshEntity;
 import com.example.domain.entity.TextureEntity;
-import io.minio.GetPresignedObjectUrlArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.errors.*;
-import io.minio.http.Method;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class TextureService implements TextureServiceInterface {
@@ -95,5 +79,28 @@ public class TextureService implements TextureServiceInterface {
     public boolean deleteTexture(Long id)
     {
         return textureRepository.deleteById(id);
+    }
+
+    @Override
+    public TextureEntity putTexture(TextureEntity textureEntityToAdd, Long id) {
+        TextureModel row = textureRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
+        try {
+            String url;
+            try {
+                url = storageService.storeFile(textureEntityToAdd.getFilename(), textureEntityToAdd.getFile(), FileType.Texture);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            row.setFilename(textureEntityToAdd.getFilename());
+            TextureEntity addedTexture = modelToEntity.convert(row);
+            addedTexture.setPresignedUrl(url);
+            return addedTexture;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

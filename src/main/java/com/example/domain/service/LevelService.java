@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class LevelService implements LevelServiceInterface {

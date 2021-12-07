@@ -1,16 +1,13 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
-import com.example.data.model.LevelModel;
-import com.example.data.model.LightModel;
 import com.example.data.model.MeshModel;
-import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.MeshEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +80,28 @@ public class MeshService implements MeshServiceInterface {
     public boolean deleteMesh(Long id)
     {
         return meshRepository.deleteById(id);
+    }
+
+    @Override
+    public MeshEntity putMesh(MeshEntity meshEntityToAdd, Long id) {
+        MeshModel row = meshRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
+        try {
+            String url;
+            try {
+                url = storageService.storeFile(meshEntityToAdd.getFilename(), meshEntityToAdd.getFile(), FileType.Mesh);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            row.setFilename(meshEntityToAdd.getFilename());
+            MeshEntity addedMesh = modelToEntity.convert(row);
+            addedMesh.setPresignedUrl(url);
+            return addedMesh;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

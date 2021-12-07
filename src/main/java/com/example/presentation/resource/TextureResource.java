@@ -1,19 +1,12 @@
 package com.example.presentation.resource;
 
 import com.example.converter.Converter;
-import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
 import com.example.domain.entity.TextureEntity;
-import com.example.domain.service.LightServiceInterface;
 import com.example.domain.service.TextureServiceInterface;
-import com.example.presentation.level.AddLevelResponse;
-import com.example.presentation.light.AddLightRequest;
-import com.example.presentation.light.AddLightResponse;
 import com.example.presentation.texture.AddTextureRequest;
 import com.example.presentation.texture.AddTextureResponse;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -21,7 +14,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.File;
 import java.util.List;
 
 @Path("texture")
@@ -72,5 +64,21 @@ public class TextureResource {
             return Response.status(Response.Status.ACCEPTED).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Transactional
+    public Response putTexture(@PathParam("id") Long id, @Valid @Parameter(hidden = true) @MultipartForm AddTextureRequest addTextureRequest){
+        try {
+            TextureEntity textureEntityToAdd = new TextureEntity().withFilename(addTextureRequest.getFilename()).withFile(addTextureRequest.getFile());
+            TextureEntity textureEntityAdded = textureService.putTexture(textureEntityToAdd, id);
+            return Response.status(Response.Status.CREATED).entity(entityToAddResponse.convert(textureEntityAdded))
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }

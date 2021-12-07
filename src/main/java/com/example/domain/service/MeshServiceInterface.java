@@ -1,6 +1,5 @@
 package com.example.domain.service;
 
-import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.MeshEntity;
 
 import java.util.List;
@@ -13,4 +12,6 @@ public interface MeshServiceInterface {
     List<MeshEntity> getMeshs() throws Exception;
 
     boolean deleteMesh(Long id);
+
+    MeshEntity putMesh(MeshEntity meshEntityToAdd, Long id);
 }

@@ -1,6 +1,5 @@
 package com.example.domain.service;
 
-import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 
 import java.util.List;

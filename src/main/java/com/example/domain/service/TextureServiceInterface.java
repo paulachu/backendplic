@@ -1,6 +1,5 @@
 package com.example.domain.service;
 
-import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.TextureEntity;
 
 import java.util.List;
@@ -10,4 +9,5 @@ public interface TextureServiceInterface {
     List<TextureEntity> getTextures() throws Exception;
     TextureEntity getByIdTexture(Long id) throws Exception;
     boolean deleteTexture(Long id);
+    TextureEntity putTexture(TextureEntity textureEntityToAdd, Long id);
 }

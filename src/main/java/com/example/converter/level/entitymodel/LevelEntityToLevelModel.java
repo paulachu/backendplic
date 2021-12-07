@@ -4,9 +4,9 @@ import com.example.converter.Converter;
 import com.example.data.model.*;
 import com.example.domain.entity.LevelEntity;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class LevelEntityToLevelModel implements Converter<LevelEntity, LevelModel> {

@@ -1,8 +1,8 @@
 package com.example.converter.texture.entitymodel;
 
+import com.example.converter.Converter;
 import com.example.data.model.TextureModel;
 import com.example.domain.entity.TextureEntity;
-import com.example.converter.Converter;
 
 import javax.enterprise.context.ApplicationScoped;
 

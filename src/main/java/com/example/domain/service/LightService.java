@@ -1,9 +1,7 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
-import com.example.data.model.LevelModel;
 import com.example.data.model.LightModel;
-import com.example.domain.entity.LevelEntity;
 import com.example.domain.entity.LightEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 

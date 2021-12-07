@@ -3,11 +3,8 @@ package com.example.domain.service;
 import com.example.ConfigurationProperties;
 import io.minio.*;
 import io.minio.http.Method;
-import org.eclipse.microprofile.config.inject.ConfigProperties;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.resource.spi.ConfigProperty;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.concurrent.TimeUnit;

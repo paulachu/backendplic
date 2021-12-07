@@ -2,12 +2,9 @@ package com.example.converter.level.entitymodel;
 
 import com.example.converter.Converter;
 import com.example.data.model.LevelModel;
-import com.example.data.model.LightModel;
 import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @ApplicationScoped

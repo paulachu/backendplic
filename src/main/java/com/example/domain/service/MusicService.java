@@ -1,18 +1,13 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
-import com.example.data.model.LevelModel;
-import com.example.data.model.LightModel;
-import com.example.data.model.MeshModel;
 import com.example.data.model.MusicModel;
-import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
-import com.example.domain.entity.MeshEntity;
 import com.example.domain.entity.MusicEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,5 +80,28 @@ public class MusicService implements MusicServiceInterface {
     public boolean deleteMusic(Long id)
     {
         return musicRepository.deleteById(id);
+    }
+
+    @Override
+    public MusicEntity putMusic(MusicEntity musicEntityToAdd, Long id) {
+        MusicModel row = musicRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
+        try {
+            String url;
+            try {
+                url = storageService.storeFile(musicEntityToAdd.getFilename(), musicEntityToAdd.getFile(), FileType.Music);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            row.setFilename(musicEntityToAdd.getFilename());
+            MusicEntity addedMusic = modelToEntity.convert(row);
+            addedMusic.setPresignedUrl(url);
+            return addedMusic;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

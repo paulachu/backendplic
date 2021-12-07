@@ -1,18 +1,13 @@
 package com.example.domain.service;
 
 import com.example.converter.Converter;
-import com.example.data.model.LevelModel;
-import com.example.data.model.LightModel;
-import com.example.data.model.MusicModel;
 import com.example.data.model.SkyboxModel;
-import com.example.domain.entity.LevelEntity;
-import com.example.domain.entity.LightEntity;
-import com.example.domain.entity.MusicEntity;
 import com.example.domain.entity.SkyboxEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,5 +80,28 @@ public class SkyboxService implements SkyboxServiceInterface {
     public boolean deleteSkybox(Long id)
     {
         return skyboxRepository.deleteById(id);
+    }
+
+    @Override
+    public SkyboxEntity putSkybox(SkyboxEntity skyboxEntityToAdd, Long id) {
+        SkyboxModel row = skyboxRepository.findById(id, LockModeType.PESSIMISTIC_WRITE);
+        try {
+            String url;
+            try {
+                url = storageService.storeFile(skyboxEntityToAdd.getFilename(), skyboxEntityToAdd.getFile(), FileType.Skybox);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            row.setFilename(skyboxEntityToAdd.getFilename());
+            SkyboxEntity addedSkybox = modelToEntity.convert(row);
+            addedSkybox.setPresignedUrl(url);
+            return addedSkybox;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
