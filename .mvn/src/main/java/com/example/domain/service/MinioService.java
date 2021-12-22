@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class MinioService implements StorageServiceInterface {
-    private MinioClient minioClient;
+    private final MinioClient minioClient;
 
     MinioService(ConfigurationProperties props)
     {
