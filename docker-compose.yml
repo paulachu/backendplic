@@ -5,13 +5,15 @@ services:
     container_name: quarkus_container
     build:
       context: .
-      dockerfile: .mvn/src/main/docker/Dockerfile.jvm
+      dockerfile: src/main/docker/Dockerfile.jvm
     depends_on:
       - postgres
     ports:
       - "8080:8080"
     networks:
       - quarkus
+    links:
+      - postgres
 
   postgres:
     container_name: postgres_container
