@@ -12,6 +12,9 @@ services:
       - "8080:8080"
     networks:
       - quarkus
+    environment:
+      - MINIO_SERVER_ACCESS_KEY=minioadmin
+      - MINIO_SERVER_SECRET_KEY=minioadmin
     links:
       - postgres
 
@@ -31,6 +34,20 @@ services:
     networks:
       - quarkus
     restart: unless-stopped
+
+  minio:
+    container_name: minio_container
+    image: 'bitnami/minio:latest'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    volumes:
+      - minio:/data/mino
+    networks:
+      - quarkus
 
 networks:
   quarkus:
