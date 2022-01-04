@@ -45,7 +45,7 @@ services:
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
     volumes:
-      - minio:/data/mino
+      - minio:/data
     networks:
       - quarkus
 
@@ -54,4 +54,5 @@ networks:
     driver: bridge
 
 volumes:
+  minio:
   postgres:
